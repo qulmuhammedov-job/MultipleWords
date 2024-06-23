@@ -69,6 +69,7 @@ cursor: pointer;
 border: 1px solid #000000;
 margin: 10px;
 transition: background 0.3s;
+width: 200px;
 }
 
 .button:hover {
@@ -129,7 +130,10 @@ width: 23%;
     </div>
     <div class="infoDiv">
         <h3 class="info">Siz bu web-saytda istalgan so'zni bir necha marta ketma-ket yozilganini buferga qabul qilib olasiz</h3>
-        <button class="button" id="button" data-filter=".space">Boshlash</button>
+        <div class="buttonDiv">
+            <button class="button" id="button" data-filter=".space">Raqam bilan yasash</button>
+            <button class="button" id="button2" data-filter=".space">Raqamsiz yasash</button>
+        </div>
         <br>
         <textarea id="myTextarea" class="textarea" placeholder="Bu yerda natijani tekshiring"></textarea>
         <br>
@@ -140,13 +144,13 @@ width: 23%;
 
 
     <script>
-        clipboardProject = () => {
+        clipboardProjectWithoutNumber = () => {
             let word = prompt(`Qaysi so'zni ko'paytiramiz?`)
             let number = prompt(`Bu so'z nechta bo'lishi kerak?`)
             copyToClipboard = () => {
                 let result = [];
                 for (let i = 1; i <= number; i++) {
-                    result.push(`${i}: ${word}`);
+                    result.push(`${word}`);
                 }
 
                 let resultString = result.join('\n');
@@ -163,7 +167,31 @@ width: 23%;
             textarea.class = 'black'
             alert('text')
         }
-        document.getElementById('button').addEventListener('click', clipboardProject)
+        clipboardProjectWithNumber = () => {
+            let word = prompt(`Qaysi so'zni ko'paytiramiz?`)
+            let number = prompt(`Bu so'z nechta bo'lishi kerak?`)
+            copyToClipboard = () => {
+                let result = [];
+                for (let i = 1; i <= number; i++) {
+                    result.push(`${i} ${word}`);
+                }
+
+                let resultString = result.join('\n');
+
+                navigator.clipboard.writeText(resultString)
+                alert(' Natija buferga saqlandi buferga saqlandi');
+            }
+            copyToClipboard()
+        }
+        youAreWelcome = () => {
+            alert('Arzimaydi🥰')
+        }
+        textareaAnimation = () => {
+            textarea.class = 'black'
+            alert('text')
+        }
+        document.getElementById('button').addEventListener('click', clipboardProjectWithNumber)
+        document.getElementById('button2').addEventListener('click', clipboardProjectWithoutNumber)
         document.getElementById('thanks').addEventListener('click', youAreWelcome)
         document.getElementById('myTextarea').addEventListener('click', function() {
             navigator.clipboard.readText()
